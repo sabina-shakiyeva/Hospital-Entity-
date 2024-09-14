@@ -29,11 +29,6 @@ namespace ConsoleApp6.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -42,9 +37,7 @@ namespace ConsoleApp6.Migrations
 
                     b.ToTable("Departments");
 
-                    b.HasDiscriminator().HasValue("Department");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("ConsoleApp6.Entities.Doctor", b =>
@@ -118,21 +111,21 @@ namespace ConsoleApp6.Migrations
                 {
                     b.HasBaseType("ConsoleApp6.Entities.Department");
 
-                    b.HasDiscriminator().HasValue("Pediatry");
+                    b.ToTable("Pediatries", (string)null);
                 });
 
             modelBuilder.Entity("ConsoleApp6.Entities.Stamology", b =>
                 {
                     b.HasBaseType("ConsoleApp6.Entities.Department");
 
-                    b.HasDiscriminator().HasValue("Stamology");
+                    b.ToTable("Stamologies", (string)null);
                 });
 
             modelBuilder.Entity("ConsoleApp6.Entities.Traumatology", b =>
                 {
                     b.HasBaseType("ConsoleApp6.Entities.Department");
 
-                    b.HasDiscriminator().HasValue("Traumatology");
+                    b.ToTable("Traumatologies", (string)null);
                 });
 
             modelBuilder.Entity("ConsoleApp6.Entities.Doctor", b =>
@@ -144,6 +137,33 @@ namespace ConsoleApp6.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("ConsoleApp6.Entities.Pediatry", b =>
+                {
+                    b.HasOne("ConsoleApp6.Entities.Department", null)
+                        .WithOne()
+                        .HasForeignKey("ConsoleApp6.Entities.Pediatry", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConsoleApp6.Entities.Stamology", b =>
+                {
+                    b.HasOne("ConsoleApp6.Entities.Department", null)
+                        .WithOne()
+                        .HasForeignKey("ConsoleApp6.Entities.Stamology", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConsoleApp6.Entities.Traumatology", b =>
+                {
+                    b.HasOne("ConsoleApp6.Entities.Department", null)
+                        .WithOne()
+                        .HasForeignKey("ConsoleApp6.Entities.Traumatology", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ConsoleApp6.Entities.Department", b =>

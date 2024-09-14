@@ -5,7 +5,7 @@
 namespace ConsoleApp6.Migrations
 {
     /// <inheritdoc />
-    public partial class mig1 : Migration
+    public partial class mig2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,8 +16,7 @@ namespace ConsoleApp6.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,6 +64,57 @@ namespace ConsoleApp6.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Pediatries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pediatries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pediatries_Departments_Id",
+                        column: x => x.Id,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stamologies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stamologies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stamologies_Departments_Id",
+                        column: x => x.Id,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Traumatologies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Traumatologies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Traumatologies_Departments_Id",
+                        column: x => x.Id,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_DepartmentId",
                 table: "Doctors",
@@ -76,6 +126,15 @@ namespace ConsoleApp6.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Doctors");
+
+            migrationBuilder.DropTable(
+                name: "Pediatries");
+
+            migrationBuilder.DropTable(
+                name: "Stamologies");
+
+            migrationBuilder.DropTable(
+                name: "Traumatologies");
 
             migrationBuilder.DropTable(
                 name: "Users");

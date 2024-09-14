@@ -77,6 +77,7 @@ namespace ConsoleApp6
                     User user = new User(name, surname, email, number);
                     users.Add(user);
                     context.Users.Add(user);
+                    context.SaveChanges();
 
                 }
                 else if (choice == 2)
@@ -113,7 +114,7 @@ namespace ConsoleApp6
                         int index = int.Parse(Console.ReadLine()) - 1;
                         if (index >= 0 && index < pediatry.Doctors.Count)
                         {
-                            var selectedDoct = selectedDep.Doctors.ElementAt(index);
+                            var selectedDoct = pediatry.Doctors.ElementAt(index);
                             while (true)
                             {
                                 try
@@ -176,7 +177,7 @@ namespace ConsoleApp6
                         int index = int.Parse(Console.ReadLine()) - 1;
                         if (index >= 0 && index < stamology.Doctors.Count)
                         {
-                            var selectedDoct = selectedDep.Doctors.ElementAt(index);
+                            var selectedDoct = stamology.Doctors.ElementAt(index);
                             while (true)
                             {
                                 try
@@ -238,7 +239,7 @@ namespace ConsoleApp6
                         int index = int.Parse(Console.ReadLine()) - 1;
                         if (index >= 0 && index < traumatology.Doctors.Count)
                         {
-                            var selectedDoct = selectedDep.Doctors.ElementAt(index);
+                            var selectedDoct = traumatology.Doctors.ElementAt(index);
                             while (true)
                             {
                                 try

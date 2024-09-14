@@ -15,7 +15,7 @@ namespace ConsoleApp6.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=STHQ0116-16;Initial Catalog=Hospital;User ID=admin;Password=admin;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-KBFH69R7;Initial Catalog=Hospital;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,14 @@ namespace ConsoleApp6.Context
                 .WithMany(dep => dep.Doctors)
                 .HasForeignKey(d => d.DepartmentId);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Pediatry>()
+                .ToTable("Pediatries");
+
+            modelBuilder.Entity<Stamology>()
+                .ToTable("Stamologies");
+            modelBuilder.Entity<Traumatology>()
+                .ToTable("Traumatologies");
         }
 
     }
